@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMAMIT HyperGrid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+    <div class="starfield" aria-hidden="true"></div>
+    <nav class="hyper-nav">
+        <div class="logo">
+            <span>HyperGrid</span>
+            <small>NMAMIT Archives</small>
+        </div>
+        <ul>
+            <li><a href="#hero">Overview</a></li>
+            <li><a href="#access">Access</a></li>
+            <li><a href="#portal">Vault</a></li>
+            <li><a href="#chat">Peerline</a></li>
+            <li><a href="#attendance">Attendance</a></li>
+            <li><a href="#events">Events</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="ghost nav-btn" href="#access">Login</a>
+            <a class="nav-btn" href="#access">Sign Up</a>
+        </div>
+    </nav>
+
+    <section class="landing-page fade-rise" id="landing">
+        <div class="landing-hero">
+            <p class="eyebrow">NMAMIT • HyperGrid Archives</p>
+            <h1>Futuristic semester vault for curated subject drops.</h1>
+            <p class="lede">Sign up with your institutional identity, authenticate, and unlock all eight semesters of resources.
+                Every subject tile instantly beams down its material bundle. Connect with peers, track attendance, and access curated study materials seamlessly.</p>
+            <div class="landing-cta">
+                <a href="#access" class="landing-btn primary">Get Started</a>
+                <a href="#access" class="landing-btn ghost">Login</a>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-content">
+                    <h3 id="activeUsers">0</h3>
+                    <p>Active Users</p>
+                </div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-content">
+                    <h3 id="notesUploaded">0</h3>
+                    <p>Notes Uploaded</p>
+                </div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-content">
+                    <h3 id="totalRegistrations">0</h3>
+                    <p>Total Registrations</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <header class="hero hidden fade-rise" id="hero">
+        <div>
+            <p class="eyebrow">NMAMIT • HyperGrid Archives</p>
+            <h1>Futuristic semester vault for curated subject drops.</h1>
+            <p class="lede">Sign up with your institutional identity, authenticate, and unlock all eight semesters of resources.
+                Every subject tile instantly beams down its material bundle.</p>
+        </div>
+    </header>
+
+    <section class="auth-grid hidden fade-rise" aria-label="Access Control" id="access">
+        <article class="auth-card">
+            <h2>Cadet Signup</h2>
+            <p class="muted">Create your space access badge.</p>
+            <form id="signupForm">
+                <label>
+                    Full Name
+                    <input type="text" id="signupName" placeholder="Aarya Shenoy" required>
+                </label>
+                <label>
+                    NMAMIT Email
+                    <input type="email" id="signupEmail" placeholder="you@nmamit.in" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" id="signupPassword" placeholder="8+ characters" minlength="8" required>
+                </label>
+                <label>
+                    Access Level
+                    <select id="signupRole" required>
+                        <option value="">Select role</option>
+                        <option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </label>
+                <button type="submit">Register Access Badge</button>
+                <p class="form-feedback" id="signupFeedback" aria-live="polite"></p>
+            </form>
+        </article>
+
+        <article class="auth-card">
+            <h2>Mission Login</h2>
+            <p class="muted">Already cleared? Enter the hyper grid.</p>
+            <form id="loginForm">
+                <label>
+                    NMAMIT Email
+                    <input type="email" id="loginEmail" placeholder="you@nmamit.in" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </label>
+                <button type="submit">Enter HyperGrid</button>
+                <p class="form-feedback" id="loginFeedback" aria-live="polite"></p>
+            </form>
+        </article>
+    </section>
+
+    <section class="portal hidden fade-rise" id="portal" aria-live="polite">
+        <div class="portal-head">
+            <div>
+                <p class="eyebrow">Access granted</p>
+                <h2 id="welcomeName">Cadet</h2>
+                <p class="muted" id="welcomeEmail">you@nmamit.in</p>
+            </div>
+            <button class="ghost" id="logoutBtn">Log out</button>
+        </div>
+
+        <div class="portal-body">
+            <div class="semester-grid" id="semesterGrid" aria-label="Semesters"></div>
+            <div class="subject-panel">
+                <div class="panel-head">
+                    <h3 id="semesterTitle">Select a semester</h3>
+                    <p class="muted">Tap a subject to auto-download the curated material pack.</p>
+                </div>
+                <ul class="subject-list" id="subjectList"></ul>
+            </div>
+        </div>
+
+        <section class="chat-suite" aria-label="Peerline Chat" id="chat">
+            <div class="chat-head">
+                <div>
+                    <p class="eyebrow">Peerline • Live</p>
+                    <h3>Senior ✦ Junior Bridge</h3>
+                </div>
+                <div class="role-toggle">
+                    <label>
+                        <input type="radio" name="persona" value="junior" checked>
+                        <span>Junior Mode</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="persona" value="senior">
+                        <span>Senior Mode</span>
+                    </label>
+                </div>
+            </div>
+            <div class="chat-window" id="chatWindow">
+                <div class="message system">
+                    Peerline is open. Switch personas to simulate the conversation and trade notes instantly.
+                </div>
+            </div>
+            <form class="chat-input" id="chatForm">
+                <input type="text" id="chatMessage" placeholder="Share a tip, doubt, or shortcut…" autocomplete="off" required>
+                <button type="submit">Send</button>
+                <button type="button" class="ghost spark" id="sparkPrompt">Prompt spark</button>
+            </form>
+        </section>
+
+        <section class="attendance-calculator fade-rise" aria-label="Attendance Calculator" id="attendance">
+            <div class="attendance-head">
+                <div>
+                    <p class="eyebrow">Attendance Tracker</p>
+                    <h3>Calculate Your Attendance Percentage</h3>
+                </div>
+            </div>
+            <div class="attendance-body">
+                <form class="attendance-form" id="attendanceForm">
+                    <label>
+                        Number of Classes Happened
+                        <input type="number" id="classesHappened" placeholder="Enter total classes" min="0" required>
+                    </label>
+                    <label>
+                        Number of Classes Attended
+                        <input type="number" id="classesAttended" placeholder="Enter classes attended" min="0" required>
+                    </label>
+                    <button type="submit">Calculate Percentage</button>
+                </form>
+                <div class="attendance-result" id="attendanceResult">
+                    <div class="result-display">
+                        <span class="result-label">Attendance Percentage</span>
+                        <span class="result-value" id="attendancePercentage">--</span>
+                    </div>
+                    <div class="result-status" id="attendanceStatus"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="events-section fade-rise" aria-label="Events & Hackathons" id="events">
+            <div class="events-head">
+                <div>
+                    <p class="eyebrow">Events & Hackathons</p>
+                    <h3>Discover Opportunities</h3>
+                    <p class="muted">Participate in nearby hackathons and college events to learn and grow.</p>
+                </div>
+                <button class="ghost" id="addEventBtn" style="display: none;">+ Add Event</button>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <div class="event-form-modal hidden" id="eventFormModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="eventFormTitle">Add New Event</h3>
+                        <button class="ghost" id="closeEventForm">×</button>
+                    </div>
+                    <form id="eventForm">
+                        <input type="hidden" id="eventId">
+                        <label>
+                            Event Name
+                            <input type="text" id="eventName" placeholder="Hackathon 2024" required>
+                        </label>
+                        <label>
+                            Event Type
+                            <select id="eventType" required>
+                                <option value="">Select type</option>
+                                <option value="hackathon">Hackathon</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="competition">Competition</option>
+                                <option value="seminar">Seminar</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </label>
+                        <label>
+                            Description
+                            <textarea id="eventDescription" placeholder="Event details and requirements..." rows="4" required></textarea>
+                        </label>
+                        <label>
+                            Date
+                            <input type="date" id="eventDate" required>
+                        </label>
+                        <label>
+                            Location
+                            <input type="text" id="eventLocation" placeholder="Venue or Online" required>
+                        </label>
+                        <label>
+                            Registration Link (optional)
+                            <input type="url" id="eventLink" placeholder="https://...">
+                        </label>
+                        <div class="form-actions">
+                            <button type="submit" id="eventSubmitBtn">Add Event</button>
+                            <button type="button" class="ghost" id="cancelEventForm">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="admin-panel hidden fade-rise" id="admin">
+        <div class="admin-head">
+            <div>
+                <p class="eyebrow">Admin Console</p>
+                <h2>Curate semesters & subjects</h2>
+            </div>
+            <p class="muted">Only campus admins should use this panel to add semesters, rename courses, or adjust lineups.</p>
+        </div>
+
+        <div class="admin-grid">
+            <article class="admin-card">
+                <h3>Add semester</h3>
+                <form id="addSemesterForm">
+                    <label>
+                        Semester name
+                        <input type="text" id="newSemesterName" placeholder="Semester 9">
+                    </label>
+                    <label>
+                        Vibe / tagline
+                        <input type="text" id="newSemesterVibe" placeholder="AI Thesis Orbit">
+                    </label>
+                    <button type="submit">Insert semester</button>
+                    <p class="form-feedback" id="addSemesterFeedback"></p>
+                </form>
+            </article>
+
+            <article class="admin-card">
+                <h3>Rename course</h3>
+                <form id="renameSubjectForm">
+                    <label>
+                        Semester
+                        <select id="semesterSelectRename"></select>
+                    </label>
+                    <label>
+                        Course
+                        <select id="subjectSelectRename"></select>
+                    </label>
+                    <label>
+                        New course name
+                        <input type="text" id="newSubjectName" placeholder="Advanced Cloud Systems">
+                    </label>
+                    <button type="submit">Update course name</button>
+                    <p class="form-feedback" id="renameSubjectFeedback"></p>
+                </form>
+            </article>
+
+            <article class="admin-card">
+                <h3>Add course</h3>
+                <form id="addSubjectForm">
+                    <label>
+                        Semester
+                        <select id="semesterSelectAddSubject"></select>
+                    </label>
+                    <label>
+                        Course title
+                        <input type="text" id="newSubjectTitle" placeholder="Immersive XR Studio">
+                    </label>
+                    <label>
+                        Course code
+                        <input type="text" id="newSubjectCode" placeholder="CSE451">
+                    </label>
+                    <button type="submit">Add course</button>
+                    <p class="form-feedback" id="addSubjectFeedback"></p>
+                </form>
+            </article>
+
+            <article class="admin-card danger">
+                <h3>Remove course</h3>
+                <form id="removeSubjectForm">
+                    <label>
+                        Semester
+                        <select id="semesterSelectRemoveSubject"></select>
+                    </label>
+                    <label>
+                        Course
+                        <select id="subjectSelectRemove"></select>
+                    </label>
+                    <button type="submit">Remove selected course</button>
+                    <p class="form-feedback" id="removeSubjectFeedback"></p>
+                </form>
+            </article>
+        </div>
+    </section>
+
+    <footer class="hidden" id="footer">
+        <small>HyperGrid © NMAMIT Collective • Crafted for seamless senior-junior continuity.</small>
+    </footer>
+
+    <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+</body>
+
+</html>
